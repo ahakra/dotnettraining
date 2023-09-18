@@ -15,9 +15,9 @@ buildDocker:
 	docker build -t $(IMAGE_NAME):$(NEW_TAG) .
 	docker run -d -p 5402:5402 --name  $(IMAGE_NAME)_container_$(NEW_TAG) $(IMAGE_NAME):$(NEW_TAG)
 
-stopCotainer:
+stopContainer:
 	docker stop $(IMAGE_NAME)_container_$(CURRENT_TAG)
 
-removeCotainer:
-	docker stop $(IMAGE_NAME)_container_$(CURRENT_TAG)
+removeContainer:stopCotainer
+	
 	docker rm $(IMAGE_NAME)_container_$(CURRENT_TAG)
