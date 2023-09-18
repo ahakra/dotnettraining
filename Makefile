@@ -1,7 +1,5 @@
 IMAGE_NAME := webapi
 VERSION := $(shell docker images -q $(IMAGE_NAME) | head -n1)
-NEW_VERSION := $(shell echo $(VERSION) | awk -F: '{print $(NF)}' | awk '{print $$1+1}')
-NEW_IMAGE_NAME := $(IMAGE_NAME):$(NEW_VERSION)
 CURRENT_TAG := $(shell docker images --format "{{.Tag}}" $(IMAGE_NAME) | head -n1)
 NEW_TAG := $(shell expr $(CURRENT_TAG) + 1)
 
@@ -18,6 +16,5 @@ buildDocker:build
 stopContainer:
 	docker stop $(IMAGE_NAME)_container_$(CURRENT_TAG)
 
-removeContainer:stopContainer
-	
+removeContainer:stopContainer	
 	docker rm $(IMAGE_NAME)_container_$(CURRENT_TAG)
